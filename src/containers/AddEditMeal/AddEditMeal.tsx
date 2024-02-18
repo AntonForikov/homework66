@@ -24,9 +24,9 @@ const AddEditMeal: React.FC = () => {
   const onFormSubmit = async (e: React.FormEvent) => { // TODO Add loader
     e.preventDefault();
      try {
-       await axiosAPI.post('/meal.json', meal)
+       await axiosAPI.post('/meal.json', meal);
      } catch {
-       alert('Please check URL!')
+       alert('Please check URL!');
      }
   };
 
