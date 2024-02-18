@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Meal} from '../../types';
+import axiosAPI from '../../axiosAPI';
 
 const initialMeal = {
   description: '',
@@ -20,10 +21,13 @@ const AddEditMeal: React.FC = () => {
     }));
   };
 
-  const onFormSubmit = (e: React.FormEvent) => {
+  const onFormSubmit = async (e: React.FormEvent) => { // TODO Add loader
     e.preventDefault();
-
-    console.log(meal);
+     try {
+       await axiosAPI.post('/meal.json', meal)
+     } catch {
+       alert('Please check URL!')
+     }
   };
 
 
