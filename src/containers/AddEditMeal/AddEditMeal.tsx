@@ -4,11 +4,18 @@ import axiosAPI from '../../axiosAPI';
 import {useNavigate, useParams} from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 
+const date = new Date();
+const year = date.getFullYear();
+const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+
 const initialMeal = {
   description: '',
   calories: '',
   category: '',
-  date: new Date()
+  date: `${year}-${month}-${day}T${hours}:${minutes}`
 };
 
 interface Props {
@@ -26,7 +33,6 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
     setMeal((prevState) => ({
       ...prevState,
       [name]: value,
-      date: new Date()
     }));
   };
 
@@ -88,8 +94,17 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
             className="form-control w-25 my-3"
             type="text"
             name="description"
-            placeholder="Meal Description"
             value={meal.description}
+            onChange={changeMeal}
+            required
+          />
+
+          <input
+            className="form-control w-25 my-3"
+            max={`${year}-${month}-${day}T${hours}:${minutes}`}
+            type='datetime-local'
+            name='date'
+            value={meal.date}
             onChange={changeMeal}
             required
           />

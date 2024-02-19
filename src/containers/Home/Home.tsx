@@ -66,6 +66,7 @@ const Home: React.FC = () => {
                 mealType={meal.category}
                 description={meal.description}
                 calories={meal.calories}
+                mealDate={meal.date}
                 onDelete={() => onDelete(meal.id)}
               />;
             })
