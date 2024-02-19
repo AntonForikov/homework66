@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         setMeals(Object.keys(data).map((id) => ({
           ...data[id],
           id
-        })));
+        })).reverse());
       }
       if (!data) {
         setMeals([]);
@@ -33,9 +33,21 @@ const Home: React.FC = () => {
     void getMeals();
   }, [getMeals]);
 
+  const onDelete = async (id:string) => {
+    const confirmation = confirm('Are you sure?');
+    if (confirmation) {
+      try {
+        await axiosAPI.delete(`/meal/${id}.json`);
+        void getMeals();
+      } catch {
+        alert('Please check URL!');
+      }
+    }
+  };
+
   return (
     <>
-      <div className="d-flex justify-content-between px-2">
+      <div className="d-flex justify-content-between px-2 mt-3">
         <span>Total calories: <strong>
           {meals.reduce((sum, meal) => {
             return sum + parseInt(meal.calories);
@@ -50,9 +62,11 @@ const Home: React.FC = () => {
             meals.map(meal => {
               return <Meal
                 key={meal.id}
+                id={meal.id}
                 mealType={meal.category}
                 description={meal.description}
                 calories={meal.calories}
+                onDelete={() => onDelete(meal.id)}
               />;
             })
           }

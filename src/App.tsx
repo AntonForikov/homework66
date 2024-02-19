@@ -8,7 +8,8 @@ function App() {
       <h1 className='border-bottom p-2'>Calorie tracker</h1>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/add-new-meal' element={<AddEditMeal />} />
+        <Route path='add-new-meal' element={<AddEditMeal />} />
+        <Route path='edit/:id' element={<AddEditMeal edit={true} />} />
         <Route path='*' element={<h1>Not Found</h1>}/>
       </Routes>
     </>
