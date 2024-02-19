@@ -33,18 +33,6 @@ const Home: React.FC = () => {
     void getMeals();
   }, [getMeals]);
 
-  const onDelete = async (id:string) => {
-    const confirmation = confirm('Are you sure?');
-    if (confirmation) {
-      try {
-        await axiosAPI.delete(`/meal/${id}.json`);
-        void getMeals();
-      } catch {
-        alert('Please check URL!');
-      }
-    }
-  };
-
   return (
     <>
       <div className="d-flex justify-content-between px-2 mt-3">
@@ -67,7 +55,7 @@ const Home: React.FC = () => {
                 description={meal.description}
                 calories={meal.calories}
                 mealDate={meal.date}
-                onDelete={() => onDelete(meal.id)}
+                rerender={getMeals}
               />;
             })
           }

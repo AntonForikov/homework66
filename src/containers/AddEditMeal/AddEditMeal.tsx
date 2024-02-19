@@ -26,6 +26,7 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
   const navigate = useNavigate();
   const [meal, setMeal] = useState<Meal>(initialMeal);
   const [loading, setLoading] = useState(false);
+  const [dis, setDis] = useState(false);
 
   const changeMeal = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -59,7 +60,7 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
      try {
-       setLoading(true);
+       setDis(true);
        if (edit) {
          await axiosAPI.put(`/meal/${params.id}.json`, meal);
        } else {
@@ -69,7 +70,7 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
      } catch {
        alert('Please check URL!');
      } finally {
-       setLoading(false);
+       setDis(false);
      }
   };
 
@@ -127,6 +128,7 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
           <button
             type="submit"
             className="btn btn-primary mt-3"
+            disabled={dis}
           >
             Save
           </button>
