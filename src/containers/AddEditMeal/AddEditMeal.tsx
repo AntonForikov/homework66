@@ -116,6 +116,7 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
               className="form-control me-2"
               id="calories"
               type="number"
+              min={1}
               name="calories"
               value={meal.calories}
               placeholder="Calories"
