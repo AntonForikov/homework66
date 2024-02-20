@@ -131,7 +131,7 @@ const AddEditMeal: React.FC<Props> = ({edit= false}) => {
             className="btn btn-primary mt-3"
             disabled={dis}
           >
-            Save
+            {edit ? 'Edit': 'Save'}
           </button>
         </form>
       }

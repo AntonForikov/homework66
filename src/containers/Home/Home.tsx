@@ -14,7 +14,11 @@ const Home: React.FC = () => {
       setLoading(true);
       const {data} = await axiosAPI.get<MealApi | null>('/meal.json');
       if (data) {
-        setMeals(Object.keys(data).map((id) => ({
+        const ids = Object.keys(data);
+        const yesterday= new Date().getDate() - 1;
+        const todayMealsId= ids.filter(id => new Date(data[id].date).getDate() > yesterday);
+
+        setMeals(todayMealsId.map((id) => ({
           ...data[id],
           id
         })).reverse());
@@ -46,7 +50,7 @@ const Home: React.FC = () => {
       {loading ? <Spinner/> :
         <>
           {!loading && meals.length < 1 ?
-            <div className="alert alert-primary px-2 mt-3 mx-2">There is no meals in database!</div> :
+            <div className="alert alert-primary px-2 mt-3 mx-2">There is no meals for today in database!</div> :
             meals.map(meal => {
               return <Meal
                 key={meal.id}
